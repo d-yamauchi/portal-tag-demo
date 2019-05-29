@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Portals Demo3</title>
+  <style>
+    html, head, body, div, video {
+      margin: 0;
+      padding: 0;
+    }
+    .is-portal video {
+      width: 100%;
+      height: 100%;
+    }
+    .is-portal *:not(.portal-visible) {
+      display: none;
+    }
+    .is-portal .portal-visible {
+      display: block;
+    }
+
+    video {
+      width: 480px;
+      height: px;
+    }
+
+    portal {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="main">
+    <video src="./video.mp4" class="portal-visible" loop autoplay></video>
+    <h1>動画タイトル：クッキー作り</h1>
+    <div>
+      動画説明：<br>
+      この動画は<a href="https://www.pexels.com/video/person-preparing-the-dough-1711830/">https://www.pexels.com/video/person-preparing-the-dough-1711830/</a>から持ってきました。<br>
+      とてもおいしそうですね。
+    </div>
+    <div><button id="back-button">戻る</button></div>
+  </div>
+  <script>
+    if (window.portalHost) {
+      document.querySelector("#main").classList.add("is-portal");
+    }
+    window.addEventListener("portalactivate", e => {
+      document.querySelector("#main").classList.remove("is-portal");
+      const ap = e.adoptPredecessor();
+      document.querySelector("#back-button").addEventListener("click", () => {
+        document.body.appendChild(ap);
+        ap.activate();
+      });
+    });
+  </script>
+</body>
+</html>

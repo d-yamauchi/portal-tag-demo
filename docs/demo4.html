@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Portal Demo4</title>
+  <style>
+    html,
+    head,
+    body,
+    div,
+    #background>portal {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      background-color: black;
+    }
+
+    #background {
+      width: 100%;
+      height: 100%;
+      opacity: 0.3;
+    }
+
+    #tweetbox {
+      position: fixed;
+      top: 50px;
+      left: 30%;
+      width: 70%;
+      height: 200px;
+      background-color: #64c0dc;
+      transform: translate(-20%);
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="background"></div>
+  <div id="tweetbox">
+    Tweetする！（これはデモです。実際には投稿されません）
+    <textarea cols="30" rows="4" style="width: 100%"></textarea>
+    <button id="tweet-button">Tweet</button>
+    <button id="back-button">戻る</button>
+  </div>
+  <script>
+    window.addEventListener("portalactivate", e => {
+      document.querySelector("textarea").innerText = e.data;
+      const ap = e.adoptPredecessor();
+      document.querySelector("#background").appendChild(ap);
+      document.querySelector("#back-button").addEventListener("click", () => ap.activate());
+    });
+    document.querySelector("#tweet-button").addEventListener("click", () => alert("Tweetしました！"));
+  </script>
+</body>
+
+</html>
